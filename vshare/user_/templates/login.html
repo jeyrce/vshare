@@ -1,0 +1,83 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+
+<html lang="zh-hans">
+<head>
+    <title>Vshare | 用户登录</title>
+    <link href="{% static 'img/vshare.ico' %}" rel="icon" />
+    <link rel="stylesheet" type="text/css" href="/static/admin/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/admin/css/login.css"/>
+
+
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/admin/css/responsive.css"/>
+
+
+    <meta name="robots" content="NONE,NOARCHIVE"/>
+</head>
+
+
+<body class=" login" data-admin-utc-offset="28800" style="background: url('{% static '/img/bg1.jpg' %}') no-repeat center;background-size: cover">
+
+<!-- Container -->
+<div id="container" style="margin: 200px auto">
+
+
+    <!-- Header -->
+    <div id="header">
+        <div id="branding">
+
+            <h1 id="site-name"><a href="/user_/login">用户登录</a></h1>
+
+        </div>
+
+
+    </div>
+    <!-- END Header -->
+
+
+    <!-- Content -->
+    <div id="content" class="colM">
+
+
+        <div id="content-main">
+
+
+            <form action="/user_/login" method="post" id="login-form">
+                {% csrf_token %}
+                <div class="form-row">
+
+                    <label class="required" for="id_username">账号:</label>
+                    <input type="text" name="account" maxlength="254" autofocus required id="id_username"/>
+                </div>
+                <div class="form-row">
+
+                    <label class="required" for="id_password">密码:</label>
+                    <input type="password" name="pwd" required id="id_password"/>
+                </div>
+
+
+                <div class="submit-row">
+                    <label>&nbsp;</label><input type="submit" value="确定登录"/>
+                    </div>
+                <div class="row">
+                    <a href="/user_/regist" style="float: left; position: fixed">尚未注册</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;
+                    <a href="/user_/securecenter" style="float: right; position: fixed">忘记密码？</a>
+                </div>
+            </form>
+        </div>
+        <br class="clear"/>
+    </div>
+    <!-- END Content -->
+    <div id="footer"></div>
+</div>
+<!-- END Container -->
+</body>
+</html>

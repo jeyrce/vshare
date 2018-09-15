@@ -1,0 +1,91 @@
+{% extends 'center_base.html' %}
+{% load staticfiles %}
+{% block pagetitle %}
+    <title>
+        Vshare | 个人中心 | 签名
+    </title>
+{% endblock %}
+
+{% block nav_title %}
+    {{ user_.account }}-添加/修改签名
+{% endblock %}
+
+{% block css_ %}
+    <style>
+        #clock{
+            font-family: 微软雅黑;
+            font-size: 25px;
+            font-weight: bold;
+            color: blue;
+        }
+        #hello{
+            color: black;
+            font-size: 22px;
+        }
+        #clock-style{
+            border: 5px solid darkgreen;
+            border-radius: 5px;
+            padding: 20px;
+        }
+    </style>
+{% endblock %}
+
+{% block lefter %}
+<div class="col-md-8">
+    {# ------时钟显示----- #}
+    <div  id="clock-style">
+        <div id="clock" >
+            <label id="Data">
+            </label>
+            <span></span>:<span></span>:<span></span>
+        </div>
+        <br>
+        <span id="hello">
+            {{ user_.account }}, {{ hello }}
+        </span>
+    </div>
+    <br><br>
+
+
+    <h2>
+        添加/修改签名
+    </h2>
+    <form action="/user_/usercenter" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <input type="text" class="form-control" id="new_tip" name="new_tip" placeholder="输入你的签名">
+            <input type="hidden" name="act" value="addtip">
+            <input type="hidden" name="u_id" value="{{ user_.id }}">
+        </div>
+            {#--提交和重置--#}
+        <div class="form-group">
+            <input class="btn btn-default" name="reset" type="reset" id="reset" tabindex="6" value="重写"/>
+            <input class="btn btn-default" name="mysubmit" type="submit" id="mysubmit" tabindex="5" value="提交"/>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+
+{% block righter %}
+    {% include 'webrighters.html' %}
+{% endblock %}
+
+{% block footer_js %}
+    <script src="{% static '/js/clock.js' %}"></script>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

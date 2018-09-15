@@ -1,0 +1,241 @@
+{% extends 'center_base.html' %}
+{% load staticfiles %}
+{% block pagetitle %}
+    <title>Vshare | 关于博主</title>
+{% endblock %}
+
+{% block nav_title %}
+    Vshare | 关于博主
+{% endblock %}
+{% block css_ %}
+    <style>
+        #my_card{
+            border-radius: 10px;
+            border: 1px solid deepskyblue;
+        }
+    .panel-body {
+        padding-left: 12px;
+    }
+    </style>
+{% endblock %}
+
+{% block lefter %}
+
+    <div class="col-md-9">
+        <div class="panel panel-index-left">
+             <div class="panel-body " style="min-height: 800px;border: solid 2px steelblue;border-radius: 2px; padding: 20px 20px 20px 48px">
+{# ------------------------------内容区----------------------------    #}
+    <h1 style="text-align: center">Python Web全栈工程师</h1>
+    <br>
+    {# -------------------整个简历为table布局---------------------- #}
+    <table style="text-align: left; width: 96%; ">
+        <tr>
+            <td colspan="2" style="padding: 0px 20px; color: dodgerblue;"><h2>个人信息</h2></td>
+        </tr>
+        {# 分割线--------个人信息------- #}
+        <tr>
+            <td colspan="2">
+                <HR style="border:1px solid purple" width="96%" color=#987cb9 SIZE=1>
+            </td>
+        </tr>
+
+        <tr>
+            <td style="padding: 0px 60px;"><h3>姓名：陆鉴鑫(lù jiàn xīn)</h3></td>
+            <td style="padding: 0px 20px;"><h3>性别：男</h3></td>
+        </tr>
+        <tr>
+            <td style="padding: 0px 60px;"><h3>毕业院校：<a href="http://www.huat.edu.cn/" target="_blank">湖北汽车工业学院</a></h3></td>
+            <td style="padding: 0px 20px;"><h3>学历：本科</h3></td>
+        </tr>
+        <tr>
+            <td style="padding: 0px 60px;"><h3>专业：电子信息工程</h3></td>
+            <td style="padding: 0px 20px;"><h3>工作经验：1年</h3></td>
+        </tr>
+        <tr>
+            <td style="padding: 0px 60px;"><h3>籍贯：湖北省十堰市</h3></td>
+            <td style="padding: 0px 20px;"><h3>年龄：23</h3></td>
+        </tr>
+        <tr>
+            <td style="padding: 0px 60px;"><h3>电话：176xxxx2287</h3></td>
+            <td style="padding: 0px 20px;"><h3>邮箱：luxxxxin@outlook.com</h3></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="padding: 0px 20px; color: dodgerblue;"><h2>教育背景</h2></td>
+        </tr>
+        {# 分割线--------教育背景------- #}
+        <tr>
+            <td colspan="2">
+                <HR style="border:1px solid purple" width="96%" color=#987cb9 SIZE=1>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="padding: 0px 40px;">
+                <ul style="line-height:30px">
+                    <li><h3>2014-08至2018-06  &nbsp;&nbsp;&nbsp;&nbsp;  <a href="http://www.huat.edu.cn/" target="_blank">湖北汽车工业学院</a> | 电子信息工程</h3></li>
+                </ul>
+            </td>
+        <tr>
+            <td colspan="2" style="padding: 0px 20px;color: dodgerblue;"><h2>求职意向</h2></td>
+        </tr>
+        {# 分割线------------求职意向------------ #}
+        <tr>
+            <td colspan="2">
+                <HR style="border:1px solid purple" width="96%" color=#987cb9 SIZE=1>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 0px 60px;"><h3>求职目标：Python Web全栈工程师</h3></td>
+            <td style="padding: 0px 20px;"><h3>期望薪资：面议</h3></td>
+        </tr>
+        <tr>
+            <td style="padding: 0px 60px;"><h3>求职类型：全职</h3></td>
+            <td style="padding: 0px 20px;"><h3>到岗时间：一周以内</h3></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="padding: 0px 20px;color: dodgerblue;"><h2>专业技能</h2></td>
+        </tr>
+        {# 分割线--------------专业技能---------- #}
+        <tr>
+            <td colspan="2">
+                <HR style="border:1px solid purple" width="96%" color=#987cb9 SIZE=1>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="padding: 0px 40px;">
+                <ul style="line-height:30px">
+                    <li><h3>熟练使用Djang web开发框架、了解Tornado web框架；</h3></li>
+
+                    <li><h3>熟练掌握HTTP/HTTPS，TCP/IP等网络协议；</h3></li>
+
+                    <li><h3>熟悉HTML、CSS、jQuery、Bootstrap等前端页面的制作；</h3></li>
+
+                    <li><h3>熟悉关系型数据库 MySQL，了解非关系型数据库如MongoDB、Redis；</h3></li>
+
+                    <li><h3>熟练使用Git版本管理工具，掌握linux系统的使用；</h3></li>
+
+                    <li><h3>了解Nginx 的部署和应用；</h3></li>
+
+                    <li><h3>掌握lxml, XPath, CSS页面分析法；</h3></li>
+
+                    <li><h3>熟练掌握Scrapy框架，有过Scrapy分布式爬虫搭建经验；</h3></li>
+
+                    <li><h3>熟悉Fiddler Web调试；</h3></li>
+
+                    <li><h3>熟练使用Python urllib2、Requests等网络模块，scrapy-redis分布式组件的使用；</h3></li>
+
+                    <li><h3>熟练使用Python lxml、BeautifulSoup、re、json、xpath模块进行数据提取；</h3></li>
+
+                    <li><h3>熟悉tesseract图片验证码模型训练；</h3></li>
+                </ul>
+            </td>
+        <tr>
+            <td colspan="2" style="padding: 0px 20px;color: dodgerblue;"><h2>工作经历</h2></td>
+        </tr>
+        {# 分割线--------------工作经历---------- #}
+        <tr>
+            <td colspan="2">
+                <HR style="border:1px solid purple" width="96%" color=#987cb9 SIZE=1>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="padding: 0px 40px;">
+                <ul>
+                <li><h3>
+                    2017-07至2018-05 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    钱包金（北京）科技有限公司   社区O2O项目组
+                </h3>
+                工作描述：根据模块任务进行代码编写，BUG提交，BUG验证等；
+                </li>
+                </ul>
+            </td>
+        <tr>
+        <tr>
+            <td colspan="2" style="padding: 0px 20px;color: dodgerblue;"><h2>项目经验</h2></td>
+        </tr>
+        {# 分割线--------------项目经验---------- #}
+        <tr>
+            <td colspan="2">
+                <HR style="border:1px solid purple" width="96%" color=#987cb9 SIZE=1>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2" style="padding: 0px 40px;">
+                {# ------------------项目列表---------------- #}
+                <ul>
+                    <li>
+                        <h3><strong>
+                            项目一：九块九电商网站
+                        </strong></h3>
+                        ......
+                    </li>
+
+                    <li>
+                        <h3><strong>
+                            项目二：o2o 商户后台
+                        </strong></h3>
+                        ......
+                    </li><li>
+                        <h3><strong>
+                            项目三：某二手车直卖网关键信息提取
+                        </strong></h3>
+                        ......
+                    </li>
+
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="padding: 0px 20px;color: dodgerblue;"><h2>自我评价</h2></td>
+        </tr>
+        {# 分割线--------------自我评价---------- #}
+        <tr>
+            <td colspan="2">
+                <HR style="border:1px solid purple" width="96%" color=#987cb9 SIZE=1>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="padding: 0px 40px;">
+                <ul style="line-height: 30px">
+                    <li><h3>热爱编程，偏爱python语言，对新技术感兴趣；</h3></li>
+                    <li><h3>抗压能力强，踏实做事；</h3></li>
+                    <li><h3>性格开朗，能快速和同事打成一片；</h3></li>
+                </ul>
+            </td>
+        </tr>
+
+    </table>
+{# -------------------------------以上是简历内容----------------------------    #}
+             </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block righter %}
+
+    {# 悬浮窗 #}
+<div class="col-md-2 col-md-offset-7" style="position: fixed;">
+    <div class="panel-body " style="min-height: 624px; border-radius: 2px;border: 2px solid black;background-color: skyblue;">
+        <div class="panel-heading" style="color: black; text-align: center">
+            <strong>联系他</strong>
+        </div>
+        <div class="panel-body ">
+            <span>
+
+            <img id="my_card" src="{% static '/me/my_card.png' %}">
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+
+
+
+
+
+
+

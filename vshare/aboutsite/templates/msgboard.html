@@ -1,0 +1,225 @@
+{% extends 'base.html' %}
+{% block pagetitle %}
+    <title>Vshare | 社区留言板</title>
+{% endblock %}
+
+{% block lefter %}
+    {#    -------------------------留言板头部--------------------------#}
+    <div class="col-md-8 blog-main">
+        <div id="article" class="well" style="border: solid black 2px">
+            <div class="text">
+                <p>
+                    <strong>
+                        这里是Vshare社区留言板，有什么想说的，赶紧来一吐为快！
+                    </strong>
+                </p>
+                <p>以下是最新的10条留言！</p>
+            </div>
+        </div>
+        {# -----------------------留言列表--------------------#}
+        {% for msg in msgs %}
+            {% if msg %}
+
+                <div class="alert alert-info comments-list" id="comment-5317">
+                    <div id="div-comment-5317">
+                        <div class="comment-author vcard" style="max-height: 150px;overflow: auto">
+                            <img src="https://www.zh30.com/avatar/default.jpg" alt="游客头像" class="img-circle"/>
+                            <strong style="color: purple">{{ msg.nickname }}</strong>：
+                            <span class="datetime">发表于 {{ msg.create_time }}</span>
+                        </div>
+                        <p style="max-height: 200px; overflow: auto">{{ msg.content }}</p>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            {% else %}
+                尚未有人留言，赶紧抢个沙发！
+            {% endif %}
+        {% endfor %}
+
+        {# --------------------------留言表单部分-------------------------#}
+
+        {% if user_ %}
+            {# ---------已登录会员入口-------- #}
+        <div class="well" id="comment-form-container" style="border: solid blueviolet 1px">
+            <div id="respond">
+                <h3>我也留个言(已登录用户直接填写留言内容即可): </h3>
+                <form action="/aboutsite/msgboard" method="post" id="msgform">
+                    {# 隐藏域携带用户信息 #}
+                    <input type="hidden" id="nickname" name="nickname" value="{{ user_.account }}">
+                    <input type="hidden" id="email" name="email" value="{{ user_.account }}@777.com">
+                    <input type="hidden" id="confirmcode" name="confirmcode" value="-----">
+                    {#此处需要一个scrftoken#}
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <textarea name="content" id="content" class="form-control" tabindex="4" placeholder="请不要评论无意义内容"
+                                  rows="3"></textarea>
+                    </div>
+            {#--提交和重置--#}
+                    <div class="form-group">
+                        <input class="btn btn-default" onclick="mysubmit()" name="submit" type="button" id="submit" tabindex="5"
+                               value="提交留言"/>
+                        <input class="btn btn-default" name="reset" type="reset" id="reset" tabindex="6" value="重写"/>
+                    </div>
+                </form>
+            <div class="clear"></div>
+            </div>
+        </div>
+
+
+        {% else %}
+            {# -------------未登录游客入口------------- #}
+             <div class="well" id="comment-form-container" style="border: solid blueviolet 1px">
+                <h3>我要留言(无需登录也可留言，但需要填写完整信息)</h3>
+                <form action="/aboutsite/msgboard" method="post" id="msgform">
+                    {#此处需要一个scrftoken#}
+            <p></p>
+            <div class="row">
+                {#留言昵称#}
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input type="text" name="nickname" id="nickname" class="form-control" value="" size="22"
+                               tabindex="1" placeholder="昵称"/>
+                    </div>
+                </div>
+                {#     留言邮箱      #}
+                <div class="col-md-6">
+                    <div class="form-group"><input type="text" name="email" id="email" class="form-control" value=""
+                                                   size="22" tabindex="2" placeholder="邮箱 (留言被回复时你能收到通知)"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <textarea name="content" id="content" class="form-control" tabindex="4" placeholder="请不要回复无意义内容"
+                          rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    {# #验证码提交input#}
+                    <div class="col-xs-4">
+                        <input type="text" name="confirmcode" id="confirmcode" class="form-control" size="6"
+                               maxlength="5" tabindex="4" placeholder="验证码"/>
+                    </div>
+                    {# 跨域请求验证#}
+                    {% csrf_token %}
+                    {#验证码位置#}
+                    <div class="col-xs-6" style="padding-left: 20px">
+                        <img src="/aboutsite/getcode/" id="msg_code_img" onclick="change_code(this)"/>
+                    </div>
+
+                </div>
+            </div>
+            {#--提交和重置--#}
+            <div class="form-group">
+                <input class="btn btn-default" onclick="mysubmit()" name="submit" type="button" id="submit" tabindex="5"
+                       value="提交留言"/>
+                <input class="btn btn-default" name="reset" type="reset" id="reset" tabindex="6" value="重写"/>
+            </div>
+            </form>
+            <div class="clear"></div>
+        </div>
+
+
+        {% endif %}
+    {% block confirmcode_js %}
+        <script>
+            {#  留言表单的js控制代码  #}
+            {#    # 验证码点击事件#}
+
+            function change_code(obj) {
+                var newtime = new Date().getTime()
+                var oldtime = obj.getAttribute('src').match(/\d+/);
+                {#         console.log(oldtime);#}
+                {#         如果时间差不够大，2秒，就不发请求，防止用户瞎点，疯狂的点#}
+                if (parseInt(newtime) - parseInt(oldtime) > 2000 || oldtime == null) {
+                    {#     设置的值必须是不一样的，否则src会认为验证码图片是静态文件，不会重新引入，#}
+                    {#         验证码刷新不出来,因此引入一个时间戳 ，用以保证相邻两次的加载地址不一样 #}
+                    $(obj).attr('src', "/aboutsite/getcode/" + newtime);
+                }
+            }
+
+            {#     ---------------------留言校验---------------------#}
+
+            function mysubmit() {
+                var token = $("[name='csrfmiddlewaretoken']").val();
+                var confirmcode = $('#confirmcode').val();
+                var nickname = $('#nickname').val();
+                var content = $('#content').val();
+                var email = $('#email').val();
+{#                console.log(confirmcode, nickname, content, email);#}
+                {# 表单数据完整性校验 #}
+                if (nickname && content && confirmcode && email) {
+                    {# 邮箱格式校验 #}
+                    var email_re = /^(\w-*\.*)+@(\w-?)+(\.\w{2,20})+$/;
+                    if (email_re.test(email)) {
+                        {# 验证码核对 #}
+                        var cflag = false;
+                        $.ajax({
+                            url: '/aboutsite/checkcode/',
+                            type: 'get',
+                            data: {'confirmcode': confirmcode},
+                            async: false, {# 阻塞 #}
+                            success: function (result) {
+                                cflag = result.checkFlag;
+                                {#                    console.log(cflag)#}
+                                return cflag;
+                            }
+                        });
+                        {#            console.log(cflag)#}
+                        if (cflag) {
+                            {# 提交留言 #}
+                            $.ajax({
+                                url: '/aboutsite/msgboard',
+                                type: 'post',
+                                data: {
+                                    'nickname': nickname,
+                                    'csrfmiddlewaretoken': token,
+                                    'email': email,
+                                    'content': content,
+                                },
+                                async: true,
+                                success: function (result) {
+                                    document.write(result.result_info);
+                                }
+                            });
+                        } else {
+                            alert('验证码错误，请重新输入后提交！');
+                            {# 刷新验证码 #}
+                            $('#msg_code_img').click();
+                        }
+                    } else {
+                        alert("邮箱格式错误");
+                    }
+                } else {
+                    alert('必须填写完整才能留言！');
+                    $('#msg_code_img').click();
+                }
+            }
+
+        </script>
+
+    {% endblock %}
+
+    </div>
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

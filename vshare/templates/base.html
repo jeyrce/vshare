@@ -1,0 +1,61 @@
+{% load staticfiles %}
+<html>
+    <head>
+    {% block pagetitle %}
+
+    {% endblock %}
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+{#  <link href="{% static 'js/jquery.min.js' %}" rel="script" />#}
+{#  <link href="{% static 'js/bootstrap.min.js' %}" rel="script" />#}
+    <link href="{% static 'img/vshare.ico' %}" rel="icon" />
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+{#    <script>alert('base')</script>#}
+    {% block js_ %}
+
+    {% endblock %}
+    {% include 'webheaders.html' %}
+    </head>
+  <body>
+
+    <div class="container main">
+
+    <div class="row">
+{#    ------------------------------置顶公告----------------------------#}
+  <div class="col-md-12">
+  <div class="well quote" style="border: 2px solid deepskyblue">
+      <img src="{% static 'img/notice.ico' %}" width="20" height="20" style="display: inline-block; margin: 0px 0px 6px 5px">
+      <p style="color: blue; font-size: 17px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          {{ top_notice.content }}
+      </p>
+      <p>
+          <span class="pull-right">————  <strong>本站公告</strong></span>
+          <br>
+      </p>
+  </div>
+  </div>
+
+{# ------------------------------------文章展示------------------------------   #}
+ {% block lefter %}
+
+ {% endblock %}
+
+{#    ----------------------------右边-------------------------#}
+{% include 'webrighters.html' %}
+
+
+    </div>
+    </div>
+    <div class="col-md-12" style="min-height: 80px"></div>
+{#  --------------------------底部--------------------------  #}
+    {% include 'webfooters.html' %}
+
+ {% block footer_js %}
+
+ {% endblock %}
+    {#------验证码预留js块#}
+    {% block confirmcode_js %}
+
+ {% endblock %}
+ </body>
+</html>

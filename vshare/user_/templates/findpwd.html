@@ -1,0 +1,140 @@
+{% extends 'center_base.html' %}
+{% load staticfiles %}
+{% block pagetitle %}
+    <title>
+        Vshare | 找回密码
+    </title>
+{% endblock %}
+
+{% block css_ %}
+    <style type="text/css">
+        .form_div{
+            border: solid limegreen 1px;
+        }
+        h2{
+            color: red;
+        }
+        green{
+            color: #4be76b;
+        }
+        .well{
+            min-height: 120px;
+        }
+        #form_div_2{
+            min-height: 400px;
+        }
+
+    </style>
+
+{% endblock %}
+
+{% block nav_title %}
+    找回密码 | Vshare
+{% endblock %}
+
+{% block lefter %}
+<div class="col-md-6">
+{% if user_ %}
+    <h1>
+        你当前已经登录账户：
+        <a href="/user_/usercenter"><u>{{ user_.account }}</u></a>
+    </h1>
+{% else %}
+    <div class="well form_div" id="form_div_1">
+    <form action="/user_/findpwd" method="get">
+        <div class="col-md-12">
+            <h3>【账号】请输入要找回密码的账号</h3>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group ">
+                <input type="text" name="account" class="form-control" size="22" placeholder="输入账号">
+            </div>
+        </div>
+        {#--提交和重置--#}
+        <div class="col-md-6">
+            <div class="form-group">
+                <input class="btn btn-default" name="submit" type="submit" id="submit" tabindex="5"
+                       value="确认"/>
+                <input class="btn btn-default" name="reset" type="reset" id="reset" tabindex="6" value="重置"/>
+            </div>
+        </div>
+    </form>
+    <div class="clear"></div>
+    </div>
+    {% if find_user %}
+        <div class="well form_div" id="form_div_2">
+            <div class="col-md-12">
+                <h2><a href="/user_/usercenter">{{ find_user.account }}</a>找回信息填写！</h2>
+            </div>
+            <form action="/user_/findpwd" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="user_id" value="{{ find_user.id }}">
+                <div class="col-md-12">
+                    <h3>【密保问题】{{ find_user.question }}?</h3>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group ">
+                        <input type="text" name="answer" class="form-control" size="22" placeholder="回答上面的问题">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <h3>【新密码】输入新密码</h3>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group ">
+                        <input type="text" name="new_pwd" class="form-control" size="22" placeholder="新密码">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <h3>【确认密码】必须和上面的保持一致</h3>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group ">
+                        <input type="text" name="sure_pwd" class="form-control" size="22" placeholder="再次输入新密码">
+                    </div>
+                </div>
+                <div class="col-md-12"></div>
+                {#--提交和重置--#}
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input class="btn btn-default" name="submit" type="submit" tabindex="5"
+                               value="确认"/>
+                        <input class="btn btn-default" name="reset" type="reset" tabindex="6" value="重置"/>
+                    </div>
+                </div>
+            </form>
+            <div class="clear"></div>
+        </div>
+    {% else %}
+        <div>
+            <h1>暂未查到账号相关信息！</h1>
+        </div>
+    {% endif %}
+
+{% endif %}
+
+</div>
+{% endblock %}
+
+{% block righter %}
+    <div class="col-md-3">
+        <span id="tips">
+            <h1>
+            假如你实在忘记了密码以及密保答案，请联系博主！
+            </h1>
+        </span>
+    </div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+

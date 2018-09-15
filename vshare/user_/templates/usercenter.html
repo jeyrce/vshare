@@ -1,0 +1,152 @@
+{% extends 'center_base.html' %}
+{% load staticfiles %}
+
+{% block pagetitle %}
+    <title>Vshare | 个人中心</title>
+{% endblock %}
+
+{% block nav_title %}
+    {{ user_.account }} - 的个人中心
+{% endblock %}
+{% block nav_add %}
+    <a href="/user_/securecenter" class="navbar-brand" target="_blank">账号安全</a>
+    <a href="/user_/details/{{ user_.id }}" class="navbar-brand" target="_blank">个人资料</a>
+    <a href="/user_/write_article" class="navbar-brand" target="_blank">写篇博客</a>
+    <a href="/file/filecenter" class="navbar-brand" target="_blank">上传文件</a>
+{% endblock %}
+{#---------------------样式----------------------#}
+{% block css_ %}
+    <style>
+        .quote span{
+            font-size: 18px;
+        }
+        #clock{
+            font-family: 微软雅黑;
+            font-size: 25px;
+            font-weight: bold;
+            color: blue;
+        }
+        #hello{
+            color: black;
+            font-size: 22px;
+        }
+        #clock-style{
+            border: 5px solid darkgreen;
+            border-radius: 5px;
+            padding: 20px;
+        }
+    </style>
+{% endblock %}
+
+{#---------------------------左边部分--------------------------#}
+{% block lefter %}
+<div class="col-md-8">
+    {# ------时钟显示----- #}
+    <div  id="clock-style">
+        <div id="clock" >
+            <label id="Data">
+            </label>
+            <span></span>:<span></span>:<span></span>
+        </div>
+        <br>
+        <span id="hello">
+            {{ f_user.account }}, {{ hello }}
+        </span>
+    </div>
+    <br><br>
+    <div class="quote">
+       <div class="panel-default panel ar-tl">
+        <h3 class="panel-title panel-heading">
+            我的基本信息
+        </h3>
+       </div>
+        <span>【签名】
+            {% if f_user.tip %}
+                {{ f_user.tip }}(<a href="/user_/usercenter?act=addtip"><u>修改</u></a>)
+            {% else %}
+                 我还没有签名！<a href="/user_/usercenter?act=addtip"><u>去添加一个</u></a>
+            {% endif %}
+        </span>
+        <br>
+        <span>
+            【账号】{{ f_user.account }}
+        </span>
+        <br>
+        <span>
+            【状态】正常
+        </span>
+        <br>
+        <span>
+            【密码】<a target="_blank" href="/user_/securecenter"><u>查看或修改</u></a>
+        </span>
+        <br>
+        <span>
+            【密保问题】{{ f_user.question }}?<a target="_blank" href="/user_/securecenter"><u>修改</u></a>
+        </span>
+        <br>
+        <span>
+            【答案】<a target="_blank" href="/user_/securecenter"><u>查看或修改</u></a>
+        </span>
+        <br>
+        <span>
+            【上次操作个人信息】{{ f_user.modified }}
+        </span>
+    </div>
+    <br><br>
+    <div class="quote">
+       <div class="panel-default panel ar-tl">
+        <h3 class="panel-title panel-heading">
+           我在本社区的贡献
+        </h3>
+       </div>
+        <span>
+            【博客发表】{{ arti_count }}篇<a target="_blank" href="/user_/usercenter?act=articles"><u>查看</u></a>
+        </span>
+        <br>
+        <span>
+            【文件上传】{{ file_count }}个<a target="_blank" href="/user_/usercenter?act=files"><u>查看</u></a>
+        </span>
+    </div>
+    <br><br>
+    <div class="quote">
+       <div class="panel-default panel ar-tl">
+        <h3 class="panel-title panel-heading">
+           我最近的动态
+        </h3>
+       </div>
+        {% for r_article in recent_articles %}
+            <span>
+                【{{ r_article.create_time }}】【发表博客】<a target="_blank" href="/article/details/{{ r_article.id }}">{{ r_article.title }}</a>
+            </span>
+            <br>
+        {% endfor %}
+
+        {% for r_file in recent_files %}
+            <span>
+            【{{ r_file.upload_time }}】【上传文件】<a target="_blank" href="/user_/files">{{ r_file.name }}</a>
+            </span>
+            <br>
+        {% endfor %}
+    </div>
+
+
+</div>
+
+{% endblock %}
+
+{% block righter %}
+
+    {% include 'webrighters.html' %}
+{% endblock %}
+
+{% block footer_js %}
+    <script src="{% static '/js/clock.js' %}"></script>
+{% endblock %}
+
+
+
+
+
+
+
+

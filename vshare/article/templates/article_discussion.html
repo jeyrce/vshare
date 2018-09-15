@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% load article_markdown %}
+{% block pagetitle %}
+    <title>Vshare | 文章评论</title>
+{% endblock %}
+
+{% block lefter %}
+    {# ----------------------文章评论展示---------------------- #}
+    <div class="col-md-8 blog-main">
+        {# 文章标题，分类，标签，作者 #}
+        <span style="text-align: center">
+            <h1><a href="/article/details/{{ article.id }}">{{ article.title }}</a></h1>
+            <h3>
+            作者：<a href="/user_/details/{{ article.author.id }}">{{ article.author.account }}</a>
+            |  发表时间：{{ article.create_time }}
+            |  分类：<a href="/archive/category/{{ article.category.id }}">{{ article.category.category }}</a>
+            |  标签：<a href="/archive/tag/{{ article.tag.id }}">{{ article.tag.tag }}</a>
+            </h3>
+        </span>
+        <HR style="border:1px solid deepskyblue" width="100%" color=#987cb9 SIZE=1>
+        <h2>网友评论{{ article.discuss }}条(第{{ page_discussion.number }}页)：</h2>
+{#    -------------------------评论展示区-------------------------#}
+            {% for dis in page_discussion %}
+   <div class="alert alert-info comments-list" id="comment-5326">
+   <div id="div-comment-5326">
+    <div class="comment-author vcard" style="max-height: 150px;overflow: auto">
+        {# 判断是否为作者自己评论 #}
+        {% if dis.user.id == article.author.id %}
+            <strong><a href="/user_/details/{{ dis.user_id }}" style="color: deeppink">本文作者</a></strong>：
+        {% else %}
+            <strong><a href="/user_/details/{{ dis.user_id }}">{{ dis.user.account }}</a></strong>：
+        {% endif %}
+        <span class="datetime">发表于 {{ dis.create_time }}</span>
+    </div>
+    <p>{{ dis.content }}</p>
+    <div class="clear"></div>
+   </div>
+  </div>
+            {% endfor %}
+
+{#---------------------------评论展示区--------------------------#}
+
+        <HR style="border:1px solid deepskyblue" width="100%" color=#987cb9 SIZE=1>
+        {# ---------------------------评论分页----------------------------#}
+        <div class="pagination">
+            {% if page_discussion.has_previous %}
+                <li><a href="/article/details/{{ article.id }}/{{ page_discussion.previous_page_number }}/"
+                       class="page_previous">上一页</a></li>
+            {% endif %}
+            {% for page in range_ %}
+                {% if page_discussion.number == page %}
+                    <li class="active"><span>{{ page }}</span></li>
+                {% else %}
+                    <li><a href="/article/details/{{ article.id }}/{{ page }}">{{ page }}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if page_discussion.has_next %}
+                <li><a href="/article/details/{{ article.id }}/{{ page_discussion.next_page_number }}/"
+                       class="page_next">下一页</a></li>
+            {% endif %}
+            <li><a href="javascript:void(0);">共{{ num_pages }}页</a></li>
+            <input type="hidden" value="{{ num_pages }}" id="num_pages">
+            <li style="line-height: 33.6px;height: 33.6px;">
+          <span>
+          跳转至
+              <input type="text" value="" id="trans_to" style="width: 30px;height: 20px; text-align: center;">页</span>
+        </div>
+
+        {# -------------------评论表单------------------ #}
+
+        <div class="well" id="comment-form-container" style="border: solid blueviolet 1px">
+            <div id="respond">
+                <h3>我有话要说: </h3>
+                <form action="/article/discuss/" method="post" id="msgform">
+                    {# 隐藏域携带用户信息 #}
+                    <input type="hidden" name="user_id" value="{{ user_.id }}">
+                    <input type="hidden" name="article_id" value="{{ article.id }}">
+                    {#此处需要一个scrftoken#}
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <textarea name="content" id="content" class="form-control" tabindex="4" placeholder="请不要评论无意义内容"
+                                  rows="3"></textarea>
+                    </div>
+            {#--提交和重置--#}
+                    <div class="form-group">
+                        <input class="btn btn-default" name="submit" type="submit" id="submit" tabindex="5"
+                               value="提交评论"/>
+                        <input class="btn btn-default" name="reset" type="reset" id="reset" tabindex="6" value="重写"/>
+                    </div>
+                </form>
+            <div class="clear"></div>
+            </div>
+        </div>
+        {% block js_ %}
+                <script>
+                    $(function () {
+                        $('#trans_to').keydown(function (event) {
+                            if (event.keyCode == 13) {
+                                var num = $('#trans_to').val();
+                                var max_num = $('#num_pages').val();
+                                {# 跳转到指定页面#}
+                                if (num != '') {
+{#                                    限定必须是数字#}
+                                    var reg = /^\d+$/;
+                                    if(reg.test(num)){
+                                    if (parseInt(num)<1) {
+                                        num = '1';
+                                    }else if(parseInt(num)>parseInt(max_num)){
+                                        num = max_num;
+                                    };
+{#                                    url = 'http://' + window.location.host + '/mainpage/' + num;#}
+                                    window.location.href = '/article/details/{{ article.id }}/' + num;
+                                        {# 滚动条拉到底部，直接看评论 #}
+                                    body.scrollTop = body.scrollHeight;
+                                    }else {
+                                        $('#trans_to').val('');
+                                    };
+                                }
+                                ;
+                            }
+                            ;
+                        });
+                    });
+
+
+                </script>
+        {% endblock %}
+
+
+    </div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+

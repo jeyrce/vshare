@@ -1,0 +1,130 @@
+{% extends 'center_base.html' %}
+{% load staticfiles %}
+
+{% block pagetitle %}
+    <title>
+        Vshare | 归档 | 博客标签
+    </title>
+{% endblock %}
+
+{% block nav_title %}
+    {{ tag_.tag }}
+{% endblock %}
+
+{% block css_ %}
+    <style>
+
+    </style>
+{% endblock %}
+
+{% block lefter %}
+    {#    #文章分页显示#}
+    <div class="col-md-8 col-md-offset-2">
+        <h2>【{{ tag_.tag }}】【标签】共计{{ count }}篇</h2>
+        <br>
+{# -------------------------文章缩略显示-------------------------------------#}
+        {% for article in page_articles %}
+            <div class="panel panel-index-left">
+                <div class="panel-footer" style="width: 100%;border-radius: 3px;">
+                    发布于{{ article.create_time }}&nbsp;|&nbsp; 浏览({{ article.read }})&nbsp;|&nbsp;标签：
+                    <a href="/archive/tag/{{ article.tag.id }}" rel="tag">{{ article.tag.tag }}</a>
+                    | 分类：
+                    <a href="/archive/category/{{ article.category.id }}" rel="tag">{{ article.category.category }}</a>
+                    | 作者：
+                    <a href="/user_/details/{{ article.author.id }}" rel="tag">{{ article.author.account }}</a>
+                    | 评论：
+                    <a href="/article/details/{{ article.id }}">{{ article.discuss }}条</a>
+                </div>
+                <div class="panel-body" style="max-height: 150px;overflow: hidden">
+                    <h2 class="blog-post-title">
+                        <a href="/article/details/{{ article.id }}">
+                            {{ article.title }}
+                            <small style="color: lawngreen; font-size: 17px">(点击查看全文)</small>
+                        </a>
+{#                        <a href="/user_/del_art/{{ article.id }}" style="font-size: 17px;color: red;">删除此文</a>#}
+                    </h2>
+                    <p>{{ article.content | truncatewords:"30" }}</p>
+                </div>
+
+
+            </div>
+
+        {% endfor %}
+        {#    -----------------------此处写一个分页条-----------------------#}
+
+        <div class="pagination">
+            {% if articles.has_previous %}
+                <li><a href="/archive/tag/{{ tag_.id }}/{{ articles.previous_page_number }}" class="page_previous">上一页</a></li>
+            {% endif %}
+            {% for page in range_ %}
+                {% if articles.number == page %}
+                    <li class="active"><span>{{ page }}</span></li>
+                {% else %}
+                    <li><a href="/archive/tag/{{ tag_.id }}/{{ page }}">{{ page }}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if articles.has_next %}
+                <li><a href="/archive/tag/{{ tag_.id }}/{{ articles.next_page_number }}" class="page_next">下一页</a></li>
+            {% endif %}
+            <li><a href="javascript:void(0);">共{{ num_pages }}页</a></li>
+            <input type="hidden" value="{{ num_pages }}" id="num_pages">
+            <li style="line-height: 32px;height: 32px;">
+          <span>
+          跳转至
+
+            <input type="text" value="" id="trans_to" style="width: 30px;height: 20px; text-align: center;">页
+
+          </span>
+            </li>
+            {% block js_ %}
+                <script>
+                    $(function () {
+                        $('#trans_to').keydown(function (event) {
+                            if (event.keyCode == 13) {
+                                var num = $('#trans_to').val();
+                                var max_num = $('#num_pages').val();
+                                {# 跳转到指定页面#}
+                                if (num != '') {
+{#                                    限定必须是数字#}
+                                    var reg = /^\d+$/;
+                                    if(reg.test(num)){
+                                    if (parseInt(num)<1) {
+                                        num = '1';
+                                    }else if(parseInt(num)>parseInt(max_num)){
+                                        num = max_num;
+                                    };
+{#                                    url = 'http://' + window.location.host + '/mainpage/' + num;#}
+                                    window.location.href = '/archive/tag/{{ tag_.id }}/' + num;
+                                    }else {
+                                        $('#trans_to').val('');
+                                    };
+                                }
+                                ;
+                            }
+                            ;
+                        });
+                    });
+
+
+                </script>
+            {% endblock %}
+
+        </div>
+
+    </div>
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+

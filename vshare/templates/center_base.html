@@ -1,0 +1,75 @@
+{% load staticfiles %}
+<html>
+    <head>
+    {% block pagetitle %}
+
+    {% endblock %}
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+{#  <link href="{% static 'js/jquery.min.js' %}" rel="script" />#}
+{#  <link href="{% static 'js/bootstrap.min.js' %}" rel="script" />#}
+    <link href="{% static 'img/vshare.ico' %}" rel="icon" />
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+{#    <script>alert('base')</script>#}
+    {% block js_ %}
+
+    {% endblock %}
+    {% block css_ %}
+
+    {% endblock %}
+    </head>
+
+<body>
+<div class="container main">
+<div class="row">
+
+  <nav class="navbar navbar-default navbar-fixed-top">
+   <div class="container">
+    <div class="navbar-header">
+{#     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse" aria-expanded="false"> <span class="sr-only">下拉菜单</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>#}
+        <a href="#" class="navbar-brand"><strong>
+        {% block nav_title %}
+        {#--------nav_title挖坑 --------------#}
+        {% endblock %}
+        </strong></a>
+
+        {% block nav_add %}
+       {#---------------动态增加nav挖坑-------------#}
+        {% endblock %}
+
+        <a href="/" class="navbar-brand" style="color: #0066ff;">>>>返回首页</a>
+
+    </div>
+   </div>
+  </nav>
+
+{#------------------------------中间部分---------------------------------#}
+{% block lefter %}
+
+{% endblock %}
+  {% block righter %}
+
+  {% endblock %}
+  <div class="col-md-12" style="min-height: 80px"></div>
+{# ------------------------------底部-------------------------------- #}
+{% include 'webfooters.html' %}
+
+{% block footer_js %}
+
+{% endblock %}
+
+</div>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

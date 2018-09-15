@@ -1,0 +1,167 @@
+
+<div class="col-md-4">
+
+   <div class="quote">
+       <div class="panel-default panel ar-tl">
+        <h3 class="panel-title panel-heading">
+           归档信息(方便你的查找)
+        </h3>
+       </div>
+       <table class="archive">
+         {% for category in categories %}
+            <tr>
+               <td>【博客】<a target="_blank" href="/archive/category/{{ category.0.id }}">分类：{{ category.0.category }}({{ category.1 }})</a></td>
+            </tr>
+         {% endfor %}
+
+         {% for tag in tags %}
+            <tr>
+               <td>【博客】<a target="_blank" href="/archive/tag/{{ tag.0.id }}">标签：{{ tag.0.tag }}({{ tag.1 }})</a></td>
+            </tr>
+         {% endfor %}
+
+         {% for type_ in types %}
+            <tr>
+               <td>【文件】<a target="_blank" href="/archive/file/{{ type_.0.id }}">分类：{{ type_.0.name }}({{ type_.1 }})</a></td>
+            </tr>
+         {% endfor %}
+
+       </table>
+   </div>
+    <br>
+    <div class="quote">
+       <div class="panel-default panel ar-tl">
+        <h3 class="panel-title panel-heading">
+           博客TOP10(讨论最多)
+        </h3>
+       </div>
+       <table class="archive">
+           {% for article in top_10_arti %}
+           <tr>
+               <td>【{{ article.category.category }}】
+                   <a target="_blank" href="/article/details/{{ article.id }}">{{ article.title| truncatewords:"15" }}({{ article.discuss }})</a>
+               </td>
+           </tr>
+           {% endfor %}
+
+       </table>
+    </div>
+    <br>
+    <div class="quote">
+       <div class="panel-default panel ar-tl">
+        <h3 class="panel-title panel-heading">
+           文件TOP10(下载最多)
+        </h3>
+       </div>
+       <table class="archive topfile">
+       {% if not user_ %}
+           <tr>
+               <td>【提示】此部分<a href="/user_/login">登录</a>后方可查看！</td>
+           </tr>
+       {% else %}
+            {% for file in top_10_file %}
+           <tr>
+               <td>【{{ file.filetype.name }}】
+                   <a href="/file/download?f_id={{ file.id }}">{{ file.name | truncatewords:"15" }}({{ file.download }})</a>
+               </td>
+           </tr>
+           {% endfor %}
+
+       {% endif %}
+
+       </table>
+    </div>
+    <br>
+    <div class="quote">
+       <div class="panel-default panel ar-tl">
+        <h3 class="panel-title panel-heading">
+           友情链接
+        </h3>
+       </div>
+       <table class="archive">
+
+           <tr>
+               <td>
+                   【1】<a target="_blank" href="https://www.aliyun.com/">
+                   阿里云-为了无法估量的价值</a>
+               </td>
+           </tr>
+           <tr>
+               <td>
+                   【2】<a target="_blank" href="https://cloud.tencent.com/">
+                   腾讯云-智能连接未来</a>
+               </td>
+           </tr>
+           <tr>
+               <td>
+                   【3】<a target="_blank" href="http://mirrors.163.com/">
+                   网易开源镜像站</a>
+               </td>
+           </tr>
+           <tr>
+               <td>
+                   【4】<a target="_blank" href="https://lujianxin2017.github.io/lujianxin/">
+                   博主的GitHub</a>
+               </td>
+           </tr>
+           <tr>
+               <td>
+                   【5】<a target="_blank" href="https://www.csdn.net/">
+                   CSDN - IT技术社区</a>
+               </td>
+           </tr>
+           <tr>
+               <td>
+                   【6】<a target="_blank" href="http://cdn.code.baidu.com/">
+                   cdn - 百度静态资源库</a>
+               </td>
+           </tr>
+           <tr>
+               <td>
+                   【7】<a target="_blank" href="http://www.huat.edu.cn/">
+                   湖北汽车工业学院</a>
+               </td>
+           </tr>
+           <tr>
+               <td>
+                   【8】<a target="_blank" href="http://bysj.huat.edu.cn/login.asp">
+                   毕业设计管理系统</a>
+               </td>
+           </tr>
+       </table>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+<style>
+    .quote{
+        padding-bottom: 20px;
+        border-radius: 3px;
+    }
+    .archive{
+        font-size: 18px;
+        line-height: 26px;
+    }
+    .ar-tl{
+        border-radius: 3px 3px 0 0;
+    }
+    .topfile{
+        min-height: 200px;
+    }
+    .archive td{
+        max-width: 400px;
+        overflow: hidden;
+    }
+
+</style>
+
+
+
+

@@ -1,0 +1,95 @@
+{% extends 'center_base.html' %}
+{% load staticfiles %}
+
+{% block pagetitle %}
+    <title>
+        Vshare | 用户信息
+    </title>
+{% endblock %}
+{% block nav_title %}
+    {{ f_user.account }}的信息
+{% endblock %}
+{% block css_ %}
+    <style>
+
+    </style>
+{% endblock %}
+
+{% block lefter %}
+<div class="col-md-8">
+    <div class="quote">
+        <div class="panel-default panel ar-tl">
+        <h3 class="panel-title panel-heading">
+           ta的签名
+        </h3>
+       </div>
+        <span id="tip">
+            {% if f_user.tip %}
+                <h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ f_user.tip }}</h3>
+            {% else %}
+                <h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ta很懒，还没有设置签名！</h3>
+            {% endif %}
+        </span>
+    </div>
+    <br><br>
+    <div class="quote">
+       <div class="panel-default panel ar-tl">
+        <h3 class="panel-title panel-heading">
+           ta在本社区的分享
+        </h3>
+       </div>
+        <span>
+            【博客发表】{{ arti_count }}篇<a target="_blank" href="/user_/details/{{ f_user.id }}?act=articles"><u>查看</u></a>
+        </span>
+        <br>
+        <span>
+            【文件上传】{{ file_count }}个<a target="_blank" href="/user_/details/{{ f_user.id }}?act=files"><u>查看</u></a>
+        </span>
+    </div>
+    <br><br>
+    <div class="quote">
+       <div class="panel-default panel ar-tl">
+        <h3 class="panel-title panel-heading">
+           ta最近的动态
+        </h3>
+       </div>
+        {% for r_article in recent_articles %}
+            <span>
+                【{{ r_article.create_time }}】【发表博客】<a target="_blank" href="/article/details/{{ r_article.id }}">{{ r_article.title }}</a>
+            </span>
+            <br>
+        {% endfor %}
+
+        {% for r_file in recent_files %}
+            <span>
+            【{{ r_file.upload_time }}】【上传文件】<a target="_blank" href="/user_/details/{{ f_user.id }}?act=files">{{ r_file.name }}</a>
+            </span>
+            <br>
+        {% endfor %}
+    </div>
+
+
+</div>
+
+
+
+{% endblock %}
+
+{% block righter %}
+    {% include 'webrighters.html' %}
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,128 @@
+{% extends 'center_base.html' %}
+{% load staticfiles %}
+{% block pagetitle %}
+    <title>
+        Vshare | 更改密保
+    </title>
+{% endblock %}
+
+{% block css_ %}
+    <style type="text/css">
+        #form_div{
+            border: solid limegreen 1px;
+        }
+        uname{
+            color: yellow;
+        }
+        h2{
+            color: red;
+        }
+        green{
+            color: #4be76b;
+        }
+        .well{
+            min-height: 530px;
+        }
+
+    </style>
+
+{% endblock %}
+
+{% block nav_title %}
+    密保更改 | <uname>{{ user_.account }}</uname>
+{% endblock %}
+
+{% block lefter %}
+{% if result %}
+    <div class="col-md-6">
+        <div class="well" id="form_div">
+            <h2>亲爱的{{ user_.account }}, 请谨慎操作: </h2>
+            <form action="/user_/cpwdsafe" method="post" id="msgform">
+                {#此处需要一个scrftoken#}
+                {% csrf_token %}
+                <input type="hidden" name="user_id" value="{{ user_.id }}">
+                <div class="col-md-12">
+                    <h3>【新密保问题】输入新的问题(长度2~20)</h3>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group ">
+                        <input type="text" name="new_question" class="form-control" size="22" placeholder="新问题">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <h3>【新问题答案】回答你定义的新问题(长度2~20)</h3>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group ">
+                        <input type="text" name="new_answer" class="form-control" size="22" placeholder="回答你提出的新问题">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <h3>【确认答案】再次确认答案，避免遗忘：</h3>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group ">
+                        <input type="text" name="sure_answer" class="form-control" size="22" placeholder="回答你提出的新问题">
+                    </div>
+                </div>
+                <div class="col-md-12">
+
+                </div>
+                {#--提交和重置--#}
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input class="btn btn-default" name="submit" type="submit" id="submit" tabindex="5"
+                               value="确认修改"/>
+                        <input class="btn btn-default" name="reset" type="reset" id="reset" tabindex="6" value="重新填写"/>
+                    </div>
+                </div>
+            </form>
+            <div class="col-md-12">
+                <h2>你上一次修改密码(或密保)是在 {{ user_.modified }}</h2>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+{% else %}
+    <div class="col-md-6">
+    <div class="well" id="form_div">
+        <h2>亲爱的{{ user_.account }}, 修改密保之前需要先验证之前的密保: </h2>
+        <form action="/user_/cpwdsafe" method="get" id="msgform">
+            <div class="col-md-12">
+                <h3>【回答】回答当前密保问题：{{ user_.question }}?</h3>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <input type="text" name="answer" class="form-control" size="22" placeholder="回答上面的问题">
+                </div>
+            </div>
+            <input type="hidden" name="user_id" value="{{ user_.id }}">
+        {#--提交和重置--#}
+        <div class="col-md-6">
+            <div class="form-group">
+                <input class="btn btn-default" name="submit" type="submit" id="submit" tabindex="5"
+                       value="进行验证"/>
+                <input class="btn btn-default" name="reset" type="reset" id="reset" tabindex="6" value="重新填写"/>
+            </div>
+        </div>
+        </form>
+        <div class="clear"></div>
+    </div>
+    </div>
+{% endif %}
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

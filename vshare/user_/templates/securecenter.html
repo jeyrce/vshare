@@ -1,0 +1,121 @@
+{% extends 'center_base.html' %}
+{% load staticfiles %}
+
+{% block pagetitle %}
+    <title>
+        Vshare | 用户安全中心
+    </title>
+{% endblock %}
+{% block css_ %}
+    <style type="text/css">
+        ul img {
+            width: 96px;
+            height: 96px;
+            border-radius: 8px;
+            border: solid black 3px;
+            margin: 0 100px 0 50px;
+        }
+        h1{
+            display: inline;
+            left: 50px;
+        }
+        ul{
+            line-height: 150px;
+        }
+        ul li div{
+            border-radius: 5px;
+            border: solid 2px skyblue;
+        }
+        ul li div:hover{
+            background-color: #4be76b;
+            border-radius: 5px;
+        }
+        #tips{
+            border: solid 2px deepskyblue;
+            border-radius: 5px;
+            min-height: 612px;
+            text-align: center;
+            margin: auto 20px;
+        }
+        #tips font{
+            font-size: 17px;
+        }
+
+    </style>
+{% endblock %}
+
+{% block nav_title %}
+    Vshare | 用户安全中心
+{% endblock %}
+
+{% block lefter %}
+ {#-----------------------------内容区----------------------------#}
+    <div class="col-md-9">
+        <ul style="list-style: none">
+            <li>
+                <a href="/user_/cpwd">
+                <div>
+                    <img src="{% static '/about_safe/mima.png' %}">
+                    <span><h1>修改密码</h1></span>
+                </div>
+                </a>
+            </li>
+            <li>
+                <a href="/user_/securecenter/findpwd">
+                <div>
+                    <img src="{% static '/about_safe/zhaohui.png' %}">
+                    <span><h1>找回密码</h1></span>
+                </div>
+                </a>
+            </li>
+            <li>
+                <a href="/user_/cpwdsafe?user_id={{ user_.id }}">
+                <div>
+                    <img src="{% static '/about_safe/mibao.png' %}">
+                    <span><h1>修改密保</h1></span>
+                </div>
+                </a>
+            </li>
+            <li>
+                <a href="/aboutsite/msgboard">
+                <div>
+                    <img src="{% static '/about_safe/feed.png' %}">
+                    <span><h1>问题反馈</h1></span>
+                </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+
+{% endblock %}
+
+{% block righter %}
+    <div class="col-md-3">
+        <div id="tips">
+            <br>
+            <h1>温馨提示</h1><br>
+            <br>
+            <span>
+                <font>
+                假如你密码密保都忘记了，请在首页导航栏点击
+                    <strong>"关于"</strong>
+                联系博主！
+                </font>
+            </span>
+        </div>
+
+    </div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,241 @@
+{% extends 'center_base.html' %}
+{% block pagetitle %}
+    <title>Vshare | 文件中心</title>
+{% endblock %}
+{% block nav_title %}
+    Vshare | 文件资源中心
+{% endblock %}
+
+{% block lefter %}
+
+    {#----------------已上传文件列表--------------#}
+<div class="col-md-12 ">
+    <div class="panel panel-index-left">
+        <div class="panel-body " style="min-height: 800px;border: solid 2px steelblue;border-radius: 2px;">
+    {# ---------上传按钮-------- #}
+   <form method="post" action="/file/upload" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div align="left">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="file" name="upfile" style="display: inline;">
+            <input type="submit" value="上传" style="display: inline;">
+            <input type="hidden" name="user_id" value="{{ user_.id }}">
+            <span>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <strong style="color: red;">上传前请务必查看页面底部注意事项!</strong>
+            </span>
+        </div>
+   </form>
+
+    {# -------表格------ #}
+    {# 当前位置：首页>文件中心#}
+            <span style="text-align: center;color: blue">
+                <h2>
+                    本站资源一览
+                   {#-----------------切换排序方式--------------#}
+                    <small>
+                   <form action="/file/filecenter" method="get" style="display: inline;color: black">
+                        <input type="hidden" id="depend" name="mydepend" value="{{ depend }}">
+                        <input type="submit" value="{{ dependname }}">
+                   </form>
+                    </small>
+                </h2>
+            </span>
+
+            <br>
+
+<table>
+    <tr>
+        <td class="download">下载次数</td>
+        <td class="filename">文件名(点击此项下载)</td>
+        <td class="filetype">文件类型</td>
+        <td class="uploadtime">时间</td>
+        <td class="byuser">贡献者</td>
+    </tr>
+    {# 分割线--------------- #}
+    <tr>
+        <td colspan="5">
+            <HR style="border:1px solid purple" width="96%" color=#987cb9 SIZE=1>
+        </td>
+    </tr>
+    {# ---------文件列表行-------- #}
+    {% for file in page_files %}
+
+    <tr>
+        <td class="download">{{ file.download }}</td>
+        <td class="filename"><u><a href="/file/download?f_id={{ file.id }}">{{ file.name }}</a></u></td>
+        <td class="filetype"><a href="/archive/file/{{ file.filetype.id }}">{{ file.filetype.name }}</a></td>
+        <td class="uploadtime">{{ file.upload_time }}</td>
+        {# 判断是否为自己上传的 #}
+        {% if user_.account == file.user.account %}
+            <td class="byuser"><a href="/user_/usercenter"><strong style="color: pink;">>我自己<</strong></a></td>
+        {% else %}
+            <td class="byuser"><a href="/user_/details/{{ file.user.id }}">{{ file.user.account }}</a></td>
+        {% endif %}
+
+    </tr>
+
+    {% endfor %}
+
+    {# 分割线--------------- #}
+    <tr>
+        <td colspan="5">
+            <HR style="border:1px solid purple" width="96%" color=#987cb9 SIZE=1>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="5">
+
+            {#    -----------------------此处写一个分页条-----------------------#}
+        <div class="pagination">
+            {% if page_files.has_previous %}
+                <li><a href="/file/filecenter?num={{ page_files.previous_page_number }}" class="page_previous">上一页</a></li>
+            {% endif %}
+            {% for page in range_ %}
+                {% if page_files.number == page %}
+                    <li class="active"><span>{{ page }}</span></li>
+                {% else %}
+                    <li><a href="/file/filecenter?num={{ page }}">{{ page }}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if page_files.has_next %}
+                <li><a href="/file/filecenter?num={{ page_files.next_page_number }}" class="page_next">下一页</a></li>
+            {% endif %}
+            <li><a href="javascript:void(0);">共{{ num_pages }}页</a></li>
+            <input type="hidden" value="{{ num_pages }}" id="num_pages">
+            <li style="line-height: 33.6px;height: 33.6px;">
+          <span>
+          跳转至
+
+            <input type="text" value="" id="trans_to" style="width: 30px;height: 20px; text-align: center;">页
+
+          </span>
+            </li>
+            {% block js_ %}
+                <script>
+                    $(function () {
+                        $('#trans_to').keydown(function (event) {
+                            if (event.keyCode == 13) {
+                                var num = $('#trans_to').val();
+                                var max_num = $('#num_pages').val();
+                                {# 跳转到指定页面#}
+                                if (num != '') {
+{#                                    限定必须是数字#}
+                                    var reg = /^\d+$/;
+                                    if(reg.test(num)){
+                                    if (parseInt(num)<1) {
+                                        num = '1';
+                                    }else if(parseInt(num)>parseInt(max_num)){
+                                        num = max_num;
+                                    };
+{#                                    url = 'http://' + window.location.host + '/mainpage/' + num;#}
+                                    window.location.href = '/file/filecenter?num=' + num;
+                                    }else {
+                                        $('#trans_to').val('');
+                                    };
+                                }
+                                ;
+                            }
+                            ;
+                        });
+                    });
+
+                </script>
+            {% endblock %}
+        </div>
+
+
+        </td>
+    </tr>
+
+</table>
+
+
+        </div>
+    </div>
+</div>
+{#    -------------------注意事项----------------------#}
+<div class="col-md-12 ">
+    <div class="panel panel-index-left">
+        <div class="panel-body " style="min-height: 150px;border: solid 2px steelblue;border-radius: 2px;">
+
+            <div id="special_notice">
+                <h3 style="color: red"><strong>注意事项：</strong></h3>
+                <ul>
+                    <li><strong> 用户请勿上传色情 ，赌博等违反互联网安全法规以及国家法律规定不允许上传的文件，一经发现永久封禁！</strong></li>
+                    <li><strong> 单个文件大小限制 <= 20M; 每人免费上传容量 <= 500M;</strong></li>
+                    <li><strong> 已存在的文件名无法上传; 文件名长度限制 <= 100;</strong></li>
+                    <li><strong> 目前支持上传的文件类型："jpg,jpeg,png,bmp,ico,gif,txt,doc,docx,xls,xlsx,pdf,md,ppt,pptx,py,json";</strong></li>
+                </ul>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block css_ %}
+    <style type="text/css">
+        table{
+            width: 100%;
+        }
+
+        td{
+            line-height: 35px;
+            height: 35px;
+            text-align: center;
+        }
+        .download{
+            width: 10%;
+        }
+        tr .filename a{
+            color: blue;
+            width: 34%;
+        }
+        .filetype{
+            width: 6%;
+        }
+        .uploadtime{
+            width: 16%;
+        }
+        .byuser{
+            width: 34%;
+        }
+        #file_nav_in{
+            position: absolute;
+            left: 5%;
+        }
+        #special_notice{
+            position: absolute;
+            left: 5%;
+        }
+
+    </style>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

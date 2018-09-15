@@ -1,0 +1,179 @@
+{% extends 'center_base.html' %}
+{% load staticfiles %}
+
+{% block pagetitle %}
+    <title>
+        Vshare | 归档 | 文件
+    </title>
+{% endblock %}
+
+{% block nav_title %}
+    {{ type_.name }}
+{% endblock %}
+
+{% block css_ %}
+    <style>
+        table{
+            width: 100%;
+        }
+
+        td{
+            line-height: 35px;
+            height: 35px;
+            text-align: center;
+        }
+        .download{
+            width: 10%;
+        }
+        tr .filename a{
+            color: blue;
+            width: 34%;
+        }
+        .filetype{
+            width: 6%;
+        }
+        .uploadtime{
+            width: 16%;
+        }
+        .byuser{
+            width: 34%;
+        }
+    </style>
+{% endblock %}
+
+{% block lefter %}
+<div class="col-md-12 ">
+    <div class="panel panel-index-left">
+        <div class="panel-body " style="min-height: 800px;border: solid 2px steelblue;border-radius: 2px;">
+
+    {# -------表格------ #}
+    {# 当前位置：首页>文件中心#}
+            <span style="text-align: center;color: blue">
+                <h2>
+                    【{{ type_.name }}】文件(共计{{ count }})
+                </h2>
+            </span>
+
+            <br>
+
+<table>
+    <tr>
+        <td class="download">下载次数</td>
+        <td class="filename">文件名(点击此项下载)</td>
+        <td class="filetype">文件类型</td>
+        <td class="uploadtime">时间</td>
+        <td class="byuser">贡献者</td>
+    </tr>
+    {# 分割线--------------- #}
+    <tr>
+        <td colspan="5">
+            <HR style="border:1px solid purple" width="96%" color=#987cb9 SIZE=1>
+        </td>
+    </tr>
+    {# ---------文件列表行-------- #}
+    {% for file in page_files %}
+
+    <tr>
+        <td class="download">{{ file.download }}</td>
+        <td class="filename"><u><a href="/file/download?f_id={{ file.id }}">{{ file.name }}</a></u></td>
+        <td class="filetype"><a href="/archive/file/{{ file.filetype.id }}">{{ file.filetype.name }}</a></td>
+        <td class="uploadtime">{{ file.upload_time }}</td>
+        <td class="byuser"><a href="/user_/usercenter">{{ file.user.account }}</a></td>
+    </tr>
+
+    {% endfor %}
+
+    {# 分割线--------------- #}
+    <tr>
+        <td colspan="5">
+            <HR style="border:1px solid purple" width="96%" color=#987cb9 SIZE=1>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="5">
+
+            {#    -----------------------此处写一个分页条-----------------------#}
+        <div class="pagination">
+            {% if page_files.has_previous %}
+                <li><a href="/archive/file/{{ type_.id }}/{{ page_files.previous_page_number }}" class="page_previous">上一页</a></li>
+            {% endif %}
+            {% for page in range_ %}
+                {% if page_files.number == page %}
+                    <li class="active"><span>{{ page }}</span></li>
+                {% else %}
+                    <li><a href="/archive/file/{{ type_.id }}/{{ page }}">{{ page }}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if page_files.has_next %}
+                <li><a href="/archive/file/{{ type_id }}/{{ page_files.next_page_number }}" class="page_next">下一页</a></li>
+            {% endif %}
+            <li><a href="javascript:void(0);">共{{ num_pages }}页</a></li>
+            <input type="hidden" value="{{ num_pages }}" id="num_pages">
+            <li style="line-height: 33.6px;height: 33.6px;">
+          <span>
+          跳转至
+
+            <input type="text" value="" id="trans_to" style="width: 30px;height: 20px; text-align: center;">页
+
+          </span>
+            </li>
+            {% block js_ %}
+                <script>
+                    $(function () {
+                        $('#trans_to').keydown(function (event) {
+                            if (event.keyCode == 13) {
+                                var num = $('#trans_to').val();
+                                var max_num = $('#num_pages').val();
+                                {# 跳转到指定页面#}
+                                if (num != '') {
+{#                                    限定必须是数字#}
+                                    var reg = /^\d+$/;
+                                    if(reg.test(num)){
+                                    if (parseInt(num)<1) {
+                                        num = '1';
+                                    }else if(parseInt(num)>parseInt(max_num)){
+                                        num = max_num;
+                                    };
+{#                                    url = 'http://' + window.location.host + '/mainpage/' + num;#}
+                                    window.location.href = '/archive/file/{{ type_.id }}/' + num;
+                                    }else {
+                                        $('#trans_to').val('');
+                                    };
+                                }
+                                ;
+                            }
+                            ;
+                        });
+                    });
+
+                </script>
+            {% endblock %}
+        </div>
+
+
+        </td>
+    </tr>
+
+</table>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+

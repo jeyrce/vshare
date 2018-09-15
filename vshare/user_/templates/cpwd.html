@@ -1,0 +1,99 @@
+{% extends 'center_base.html' %}
+{% load staticfiles %}
+{% block pagetitle %}
+    <title>
+        Vshare | 修改密码
+    </title>
+{% endblock %}
+
+{% block css_ %}
+    <style type="text/css">
+        #form_div{
+            border: solid limegreen 1px;
+        }
+        uname{
+            color: yellow;
+        }
+        h2{
+            color: red;
+        }
+        green{
+            color: #4be76b;
+        }
+        .well{
+            min-height: 500px;
+        }
+
+    </style>
+
+{% endblock %}
+
+{% block nav_title %}
+    改密 | <uname>{{ user_.account }}</uname>
+{% endblock %}
+
+{% block lefter %}
+<div class="col-md-6">
+    <div class="well" id="form_div">
+        <h2>亲爱的{{ user_.account }}, 请谨慎操作: </h2>
+        <form action="/user_/cpwd" method="post" id="msgform">
+            {#此处需要一个scrftoken#}
+            {% csrf_token %}
+            <input type="hidden" name="user_id" value="{{ user_.id }}">
+            <div class="col-md-12">
+                <h3>【旧密码】请输入当前密码</h3>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <input type="text" name="pwd" class="form-control" size="22" placeholder="旧密码">
+                </div>
+            </div>
+            <div class="col-md-12">
+                <h3>【新密码】输入新的密码</h3>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <input type="password" name="new_pwd" class="form-control" size="22" placeholder="新密码">
+                </div>
+            </div>
+            <div class="col-md-12">
+                <h3>【新密码确认】再次输入新密码，必须和上面保持一致！</h3>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <input type="password" name="sure_pwd" class="form-control" size="22" placeholder="再次输入新密码">
+                </div>
+            </div>
+            <div class="col-md-12">
+
+            </div>
+            {#--提交和重置--#}
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input class="btn btn-default" name="submit" type="submit" id="submit" tabindex="5"
+                           value="确认修改"/>
+                    <input class="btn btn-default" name="reset" type="reset" id="reset" tabindex="6" value="重置"/>
+                </div>
+            </div>
+        </form>
+        <div class="col-md-12">
+            <h2>你上一次修改密码(或密保)是在 {{ user_.modified }}</h2>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

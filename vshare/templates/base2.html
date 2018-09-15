@@ -1,0 +1,55 @@
+{% load staticfiles %}
+<html>
+<head>
+    {% block pagetitle %}
+
+    {% endblock %}
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+{#  <link href="{% static 'js/jquery.min.js' %}" rel="script" />#}
+{#  <link href="{% static 'js/bootstrap.min.js' %}" rel="script" />#}
+    <link href="{% static 'img/vshare.ico' %}" rel="icon" />
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+{#    <script>alert('base')</script>#}
+    {% block css_ %}
+    
+    {% endblock %}
+    {% block js_ %}
+
+    {% endblock %}
+</head>
+    {% include 'webheaders.html' %}
+  <body>
+
+    <div class="container main">
+
+    <div class="row">
+{#    ------------------------------置顶公告----------------------------#}
+
+
+{# ------------------------------------文章展示------------------------------   #}
+ {% block lefter %}
+
+ {% endblock %}
+
+{#    ----------------------------右侧------------------------#}
+  {% block righter %}
+  
+  {% endblock %}
+
+    </div>
+    </div>
+
+{#  --------------------------底部--------------------------  #}
+    <div class="col-md-12" style="min-height: 80px"></div>
+    {% include 'webfooters.html' %}
+
+ {% block footer_js %}
+
+ {% endblock %}
+    {#------验证码预留js块#}
+    {% block confirmcode_js %}
+
+ {% endblock %}
+ </body>
+</html>

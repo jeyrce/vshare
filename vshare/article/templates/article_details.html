@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load article_markdown %}
+{% load staticfiles %}
+{% block pagetitle %}
+    <title>Vshare | 文章详情</title>
+{% endblock %}
+
+{% block lefter %}
+    {# ----------------------文章详情展示---------------------- #}
+    <div class="col-md-8 blog-main">
+     <div class="panel panel-index-left">
+       <div class="panel-body" style="max-height: 1200px;overflow: auto">
+        {# 文章标题，分类，标签，作者 #}
+        <span style="text-align: center">
+            <h1><a href="/article/details/{{ article.id }}">{{ article.title }}</a></h1>
+            <h3>
+            作者：<a href="/user_/details/{{ article.author.id }}">{{ article.author.account }}</a>
+            |  发表时间：{{ article.create_time }}
+            |  分类：<a href="/archive/category/{{ article.category.id }}">{{ article.category.category }}</a>
+            |  标签：<a href="/archive/tag/{{ article.tag.id }}">{{ article.tag.tag }}</a>
+            </h3>
+        </span>
+        {# 文章正文 #}
+        <HR style="border:1px solid deepskyblue" width="100%" color=#987cb9 SIZE=1>
+        {{ article.content|md|safe }}
+      </div>
+     </div>
+        <HR style="border:1px solid deepskyblue" width="100%" color=#987cb9 SIZE=1>
+        <h2>网友评论{{ article.discuss }}条：<a href="/article/details/{{ article.id }}/1"><u>点此查看此文章的评论</u></a></h2>
+
+        {# -------------------评论表单------------------ #}
+
+        <div class="well" id="comment-form-container" style="border: solid blueviolet 1px">
+            <div id="respond">
+                <h3>我有话要说: </h3>
+                <form action="/article/discuss/" method="post" id="msgform">
+                    {# 隐藏域携带用户信息 #}
+                    <input type="hidden" name="user_id" value="{{ user_.id }}">
+                    <input type="hidden" name="article_id" value="{{ article.id }}">
+                    {#此处需要一个scrftoken#}
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <textarea name="content" id="content" class="form-control" tabindex="4" placeholder="请不要评论无意义内容"
+                                  rows="3"></textarea>
+                    </div>
+            {#--提交和重置--#}
+                    <div class="form-group">
+                        <input class="btn btn-default" name="submit" type="submit" id="submit" tabindex="5"
+                               value="提交评论"/>
+                        <input class="btn btn-default" name="reset" type="reset" id="reset" tabindex="6" value="重写"/>
+                    </div>
+                </form>
+            <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+

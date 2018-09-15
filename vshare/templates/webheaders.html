@@ -1,0 +1,40 @@
+
+
+  <nav class="navbar navbar-default navbar-fixed-top">
+   <div class="container">
+    <div class="navbar-header">
+     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse" aria-expanded="false"> <span class="sr-only">下拉菜单</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+     <a href="/" class="navbar-brand">Vshare | 分享你我</a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-navbar-collapse">
+     <ul class="nav navbar-nav top-navbar-nav" id="custom_nav">
+{#      <li><a href="/">首页</a></li>#}
+      <li><a href="/user_/usercenter" target="_blank">个人中心</a></li>
+      <li><a href="/user_/write_article" target="_blank">写博客</a></li>
+      <li><a href="/file/filecenter" target="_blank">文件中心</a></li>
+      <li><a href="/aboutsite/msgboard">建议</a></li>
+      <li><a href="/aboutsite/me_ljx" target="_blank">关于</a></li>
+      <li><a href="/user_/securecenter" target="_blank">安全中心</a></li>
+
+    {# 此部分用于判断并且反馈给用户是否登陆状态 #}
+     {# 位置就应该在全部公用的headers部分 #}
+         {% if user_ %}
+             <li><a href="/user_/usercenter" target="_blank" >欢迎<span>{{ user_.account | truncatewords:"4" }}</span></a></li>
+             <li><a href="/user_/logout">注销登录</a></li>
+             {% else %}
+
+             <li><a href="/user_/login" target="_blank" >登录/注册</a></li>
+         {% endif %}
+     </ul>
+
+
+     <form id="searchform" class="navbar-form navbar-right" role="search" target="_blank" action="/mainpage/search/" method="get">
+      <div class="form-group">
+       <input type="text" id="s" name="s" class="form-control" data-provide="typehead" autocomplete="off" placeholder="站内搜索" />
+      </div>
+      <button type="submit" class="btn btn-default" id="submitsearch">搜索</button>
+     </form>
+    </div>
+   </div>
+  </nav>
+
