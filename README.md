@@ -11,7 +11,7 @@
 
 - major: 电子信息工程
 
-- contact: lu_jianxin@outlook.com
+- contact: cn.lujianxin@gmail.com
 
 ---
 
