@@ -5,14 +5,13 @@
 
 (2)我的在线简历: [https://me.lujianxin.com](https://me.lujianxin.com)
 
-(3)我的专题文章: [http://doc.lujianxin.com](http://doc.lujianxin.com)
 
 ### 多人博客社区
 
 ---
 - **包含各种论文， 可以作为参考**
 
-- author: Jeeyshe
+- author: Jeyrce.Lu
 
 - school: HUAT
 
@@ -20,7 +19,7 @@
 
 - major: 电子信息工程
 
-- contact: jeeyshe@gmail.com
+- contact: Jeyrce@gmail.com
 
 ---
 
