@@ -19,7 +19,7 @@
 
 - major: 电子信息工程
 
-- contact: Jeyrce@gmail.com
+- contact: jeyrce@gmail.com
 
 ---
 
@@ -39,5 +39,4 @@
 
 再回首，我已毕业两年了。这个项目在现在的我看来， 的确很low， 现在我当然能够做得更好，但是还是原样放在这留个纪念好了。
 
-欢迎访问我自己的博客网站: [https://www.lujianxin.com](https://www.lujianxin.com)，可帮忙指导编程类的毕业设计。
 
